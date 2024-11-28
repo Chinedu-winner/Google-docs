@@ -1,4 +1,44 @@
 import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
+import * as yup from 'yup'
+import { useFormik } from 'formik'
+
+
+const welcome = ()=>{
+    const url = ''
+    let navigate = useNavigate()
+    const [message, setMessage]= useState("")
+    const formik = useFormik({
+        initialValues:{
+            firstName: '',
+            LastName: '',
+            email: '',
+            password: ''
+        },
+
+    onSubmit: (values)=>{
+        console.log(values);
+        axios.post(url, values)
+        .then((response)=>{
+            console.log(response);
+            if (response.data.status){
+                navigate('/login')
+            }else{
+                setMessage(response.data.message)
+            }
+        })
+    }
+    })
+}
+const userSchema =  yup.object({
+    firstName: yup.string().required("first name is required"),
+    lastName: yup.string().required("last name is required"), 
+    email: yup.string().min(6, "Password muat be  at least 6  characters").required("Password is required"), 
+    password: yup.string().min(5, 'password must be at least 6 characters').required("your password is required")
+})
+
 
 function Component() {
   return (

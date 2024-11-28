@@ -7,10 +7,6 @@ const dashboard = () =>{
     title: '',
     note:''
   }
-    const userSchema = yup.object({
-      title: yup.string().required("title is required"), 
-      note: yup.string().required("note is requried"),      
-    }) 
 }
 
 const Mineral =()=> {
